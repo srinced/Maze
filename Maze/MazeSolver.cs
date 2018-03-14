@@ -22,6 +22,11 @@ namespace Maze
         private string[,] solvedMaze;
 
         /// <summary>
+        /// The route tracking maze.
+        /// </summary>
+        private bool[,] trackingMaze;
+
+        /// <summary>
         /// The maze.
         /// </summary>
         private int[,] maze;
@@ -69,7 +74,7 @@ namespace Maze
             {
                 solvedMaze[endPointRow, endPointCol] = "E";
                 PrintMaze("output.txt");
-                Console.WriteLine("Solution found. See the ouput file.");
+                Console.WriteLine("Solution found. See the ouput file.\r\n");
             }
         }
 
@@ -97,6 +102,7 @@ namespace Maze
 
                 maze = new int[rowNum, colNum];
                 solvedMaze = new string[rowNum, colNum];
+                trackingMaze = new bool[rowNum, colNum];
 
                 for (int row = 0; row < rowNum; row++)
                 {
@@ -130,7 +136,7 @@ namespace Maze
         /// <returns>True if the path is found.</returns>
         private bool FindPath(int x, int y, Direction direction)
         {
-            if (solvedMaze[y, x] == "X")
+            if (solvedMaze[y, x] == "X" || trackingMaze[y, x])
                 return false;
 
             //are we on the Maze boundaries?
@@ -145,6 +151,8 @@ namespace Maze
                 solvedMaze[y, x] = "E";
                 return true;
             }
+
+            trackingMaze[y, x] = true;
 
             foreach (Movement dirInfo in Move)
             {

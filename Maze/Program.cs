@@ -6,16 +6,15 @@ namespace Maze
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the full input file name:");
+            while (true)
+            {
+                Console.WriteLine("Enter the full input file name:");
 
-            var fileName = Console.ReadLine();
+                var fileName = Console.ReadLine();
 
-            MazeSolver solver = new MazeSolver();
-            solver.Solve(fileName);
-
-            Console.ReadLine();
-
+                MazeSolver solver = new MazeSolver();
+                solver.Solve(fileName);
+            }
         }
     }
-
 }
